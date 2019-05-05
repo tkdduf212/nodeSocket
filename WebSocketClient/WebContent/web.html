@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SocketChat</title>
+<link rel="stylesheet" href="web.css">
+<link rel="stylesheet" type="text/css" crossorigin="anonymous"href="http://meta-kage.kakaocdn.net/dn/osa/blog/assets/fonts/Kakao.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+<script src="http://192.168.0.2:9999/socket.io/socket.io.js"></script>
+<script>
+	$(function() {
+		var socket = io.connect('http://192.168.0.2:9999');
+		
+		$("#name").keyup(function(e){
+			if (e.keyCode == 13) {
+				$.mobile.changePage($("#chatPage"),{transition:"flow"});
+			}
+		});
+		$("#chatGo").click(function(){
+			$.mobile.changePage($("#chatPage"),{transition:"flow"});
+		});
+		
+		socket.on('resMsg', function(chat) {
+			var name=$("<p class='user'></p>").text(chat.n)
+			var msg = $("<p></p>").text(chat.m);
+			var br = $("<br>");
+			var span = $("<span></span>").append(msg);
+			var li = $("<li></li>").append(span);
+			var ul = $("<ul></ul>").append(name, li, br).attr("class","from_you");
+			$(".chatBox").append(ul);
+		});
+
+		socket.on('resMsgMe', function(chat) {
+			var msg = $("<p></p>").text(chat.m);
+			var br = $("<br>");
+			var span = $("<span></span>").append(msg);
+			var li = $("<li></li>").append(span);
+			var ul = $("<ul></ul>").append(name, li, br).attr("class","from_me");
+			$(".chatBox").append(ul);
+		});
+		
+
+		$("#msg").keyup(function(e) {
+			var name = $("#name").val();
+			var msg = $("#msg").val();
+			var chat = {n:name, m:msg}
+			if (e.keyCode == 13) {
+				socket.emit('reqMsg', chat);
+				$("#msg").val("").focus();
+			}
+		});
+		$("#btn").on('click', function() {
+			var name = $("#name").val();
+			var msg = $("#msg").val();
+			var chat = {n:name, m:msg}
+			socket.emit('reqMsg', chat);
+			$("#msg").val("").focus();
+		});
+	});
+</script>
+</head>
+<body id="body">
+	<div data-role="page" id="titlePage">
+		<div data-role="header" data-position="fixed">
+			<h1>SoketChat</h1>
+		</div>
+		<div data-role="content">
+			<center>
+				<img src="chat.png" style="width: 70%;">
+			</center>
+			<input id="name" placeholder="대화명"><hr>
+			<button id="chatGo">접속</button>
+		</div>
+	</div>
+
+	<div data-role="page" id="chatPage">
+		<div data-role="header" data-position="fixed">
+			<a href="#titlePage" data-icon="arrow-1">나가기</a>
+			<h1>Chat</h1>
+		</div>
+		<div data-role="content">
+			<div class="chatBox">
+
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<input id="msg"><button id="btn">보내기</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

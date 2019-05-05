@@ -1,0 +1,145 @@
+@CHARSET "UTF-8";
+#body{
+
+}
+
+.user{
+	padding: 0px;
+	margin: 0px;
+	font-weight: 3;
+	color: white;
+}
+
+.chatBox {
+	padding: 10px 10px 10px 10px;
+	margin:-15px;
+	background-color: #a1c0d6;
+}
+
+.chatBox>ul {
+	position: relative;
+	width: 90%;
+	z-index: 0;
+}
+
+.from_me {
+	text-align: right;
+}
+
+ul.from_me>li {
+	display: inline-block;
+	text-align: left;
+	position: relative;
+	background: #FCCE00;
+	word-wrap: break-word;
+	max-width: 240px;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	border-radius: 10px;
+}
+
+ul.from_me>li:after {
+	content: '';
+	position: absolute;
+	height: 25px;
+	width: 25px;
+	border-radius: 12.5px;
+	z-index: -1;
+	background: #a1c0d6;
+	bottom: -10px;
+	right: -13px;
+}
+
+ul.from_me>li:before {
+	content: '';
+	position: absolute;
+	height: 25px;
+	width: 25px;
+	border-radius: 12.5px;
+	z-index: -1;
+	background: #FCCE00;
+	bottom: -6px;
+	right: -4px;
+}
+
+ul.from_me>li>span.nm {
+	position: absolute;
+	right: 0px;
+	top: -20px;
+}
+
+ul.from_me>li>span.tm {
+	position: absolute;
+	font-size: 14px;
+	left: -55px;
+	bottom: 0px;
+}
+
+ul.from_you>li {
+	display: inline-block;
+	position: relative;
+	background: #FFFFFD;
+	word-wrap: break-word;
+	max-width: 240px;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	border-radius: 10px;
+}
+
+ul.from_you>li:after {
+	content: '';
+	position: absolute;
+	height: 25px;
+	width: 25px;
+	border-radius: 12.5px;
+	z-index: -1;
+	background: #a1c0d6;
+	bottom: -10px;
+	left: -13px;
+}
+
+ul.from_you>li:before {
+	content: '';
+	position: absolute;
+	height: 25px;
+	width: 25px;
+	border-radius: 12.5px;
+	z-index: -1;
+	background: #FFFFFD;
+	bottom: -6px;
+	left: -4px;
+}
+
+ul.from_you {
+	text-align: left;
+	padding-left: 2%;
+}
+
+ul.from_you>li>span.nm {
+	position: absolute;
+	left: 0px;
+	top: -20px;
+}
+
+ul.from_you>li>span.tm {
+	position: absolute;
+	font-size: 14px;
+	right: -55px;
+	bottom: 0px;
+}
+
+/*
+.talk.other {
+	margin-left: 30px;
+	border: 5px solid #fff;
+	background: #fff;
+}
+
+.talk.me {
+	margin-right: 30px;
+	border: 5px solid #ffec42;
+	background-color: #ffec42;
+}
+*/
